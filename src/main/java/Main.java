@@ -1,15 +1,17 @@
 import com.formation.dao.BookDao;
-import com.formation.dao.BookDaoImpl;
+import com.formation.dao.BookDaoEntityManagerFactory;
+import com.formation.dao.BookDaoSessionFactory;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        BookDao dao = new BookDaoImpl();
+        //BookDao daoSession = new BookDaoSessionFactory();
+        BookDao daoEntityManager = new BookDaoEntityManagerFactory();
 
-        dao.setup();
-        dao.delete();
-        dao.exit();
+        daoEntityManager.setup();
+        daoEntityManager.delete();
+        daoEntityManager.exit();
     }
 
 }
