@@ -1,17 +1,18 @@
-import com.formation.dao.BookDao;
-import com.formation.dao.BookDaoEntityManagerFactory;
-import com.formation.dao.BookDaoSessionFactory;
+import com.formation.dao.ProduitDao;
+import com.formation.dao.ProduitDaoEntityManagerFactory;
+import com.formation.dao.ProduitDaoSessionFactory;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        //BookDao daoSession = new BookDaoSessionFactory();
-        BookDao daoEntityManager = new BookDaoEntityManagerFactory();
+        ProduitDao produitDaoSf= new ProduitDaoSessionFactory();
+        //ProduitDao produitDaoEmf= new ProduitDaoEntityManagerFactory();
 
-        daoEntityManager.setup();
-        daoEntityManager.delete();
-        daoEntityManager.exit();
+        produitDaoSf.setup();
+        produitDaoSf.searchProduitByNom();
+        produitDaoSf.exit();
+
     }
 
 }

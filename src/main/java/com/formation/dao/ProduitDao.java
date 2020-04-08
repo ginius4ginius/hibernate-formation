@@ -1,6 +1,6 @@
 package com.formation.dao;
 
-public interface BookDao {
+public interface ProduitDao {
 
     public void setup();
 
@@ -13,5 +13,11 @@ public interface BookDao {
     public void update();
 
     public void delete();
+
+    public void selectProduits();
+
+    public void selectProduitsByCategorie();
+
+    public void searchProduitByNom();
 
 }
