@@ -1,5 +1,6 @@
 package com.formation.dao;
 
+import com.formation.dao.utils.EntityManagerFactoryUtils;
 import com.formation.entities.Produit;
 
 import javax.persistence.EntityManager;
@@ -8,21 +9,7 @@ import javax.persistence.Persistence;
 
 public class ProduitDaoEntityManagerFactory implements ProduitDao {
 
-    private EntityManager entityManager;
-    private EntityManagerFactory entityManagerFactory;
-
-
-    public void setup() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("hibernate-formation-db");
-        entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-    }
-
-
-    public void exit() {
-        entityManager.close();
-        entityManagerFactory.close();
-    }
+    private EntityManagerFactoryUtils entityManagerFactoryUtils = new EntityManagerFactoryUtils();
 
 
     public void create() {
@@ -31,8 +18,8 @@ public class ProduitDaoEntityManagerFactory implements ProduitDao {
         produit.setNom("Bonbon à la fraise");
         produit.setPrix(1.5f);
 
-        entityManager.persist(produit);
-        entityManager.getTransaction().commit();
+        entityManagerFactoryUtils.getEntityManager().persist(produit);
+        entityManagerFactoryUtils.getEntityManager().getTransaction().commit();
 
     }
 
@@ -40,7 +27,7 @@ public class ProduitDaoEntityManagerFactory implements ProduitDao {
     public void read() {
 
         long produitId= 2;
-        Produit produit = entityManager.find(Produit.class, produitId);
+        Produit produit = entityManagerFactoryUtils.getEntityManager().find(Produit.class, produitId);
 
         System.out.println("Nom: " + produit.getNom());
         System.out.println("Prix: " + produit.getPrix());
@@ -55,8 +42,8 @@ public class ProduitDaoEntityManagerFactory implements ProduitDao {
         produit.setNom("Bonbon à la fraise des bois");
         produit.setPrix(1.5f);
 
-        entityManager.merge(produit);
-        entityManager.getTransaction().commit();
+        entityManagerFactoryUtils.getEntityManager().merge(produit);
+        entityManagerFactoryUtils.getEntityManager().getTransaction().commit();
 
     }
 
@@ -64,9 +51,9 @@ public class ProduitDaoEntityManagerFactory implements ProduitDao {
     public void delete() {
 
         long produitId= 2;
-        Produit reference = entityManager.getReference(Produit.class, produitId);
-        entityManager.remove(reference);
-        entityManager.getTransaction().commit();
+        Produit reference = entityManagerFactoryUtils.getEntityManager().getReference(Produit.class, produitId);
+        entityManagerFactoryUtils.getEntityManager().remove(reference);
+        entityManagerFactoryUtils.getEntityManager().getTransaction().commit();
 
     }
 
