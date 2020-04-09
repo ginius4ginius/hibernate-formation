@@ -8,18 +8,20 @@ import java.util.Date;
 @IdClass(CommandePK.class)
 public class Commande {
 
+    @Id
+    @Column(name = "utilisateur_id")
     private long utilisateurId;
+
+    @Id
+    @Column(name = "produit_id")
     private long produitId;
     private Date dateCommande;
 
-    @Id
-    @Column(name = "utilisateur_id")
+
     public long getUtilisateurId() {
         return utilisateurId;
     }
 
-    @Id
-    @Column(name = "produit_id")
     public long getProduitId() {
         return produitId;
     }

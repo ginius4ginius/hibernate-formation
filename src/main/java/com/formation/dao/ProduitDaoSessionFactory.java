@@ -1,46 +1,23 @@
 package com.formation.dao;
 
+import com.formation.dao.utils.SessionFactoryUtils;
+
 import com.formation.entities.Categorie;
 import com.formation.entities.Produit;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class ProduitDaoSessionFactory implements ProduitDao {
+public class ProduitDaoSessionFactory implements ProduitDao, Dao {
 
-    private SessionFactory sessionFactory;
-
-    public void setup() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure() // récupère la configuration du fichier hibernate.cfg.xml
-                .build();
-        try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception ex) {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
-
-    }
-
-    public void exit() {
-        sessionFactory.close();
-    }
-
+    SessionFactoryUtils utils = new SessionFactoryUtils();
 
     public void create() {
 
-        Session session = sessionFactory.openSession();
+
+        Session session = utils.getSessionFactory().openSession();
         session.beginTransaction();
-
-        Categorie categorie = new Categorie("sucrerie");
-
-        session.save(categorie);
 
         Produit produit = new Produit();
         produit.setNom("Bonbon à la menthe");
@@ -63,13 +40,12 @@ public class ProduitDaoSessionFactory implements ProduitDao {
 
         session.getTransaction().commit();
         session.close();
-
     }
 
 
     public void read() {
 
-        Session session = sessionFactory.openSession();
+        Session session = utils.getSessionFactory().openSession();
 
         long produitId = 1;
         Produit produit = session.get(Produit.class, produitId);
@@ -89,7 +65,7 @@ public class ProduitDaoSessionFactory implements ProduitDao {
         produit.setNom("Bonbon à la menthe");
         produit.setPrix(2.5f);
 
-        Session session = sessionFactory.openSession();
+        Session session = utils.getSessionFactory().openSession();
         session.beginTransaction();
 
         session.update(produit);
@@ -105,7 +81,7 @@ public class ProduitDaoSessionFactory implements ProduitDao {
         Produit produit = new Produit();
         produit.setId(1);
 
-        Session session = sessionFactory.openSession();
+        Session session = utils.getSessionFactory().openSession();
         session.beginTransaction();
 
         session.delete(produit);
@@ -117,7 +93,7 @@ public class ProduitDaoSessionFactory implements ProduitDao {
 
     public void selectProduits() {
 
-        Session session = sessionFactory.openSession();
+        Session session = utils.getSessionFactory().openSession();
         session.beginTransaction();
         String hql = "from Produit";
         Query query = session.createQuery(hql);
@@ -132,7 +108,7 @@ public class ProduitDaoSessionFactory implements ProduitDao {
 
     public void selectProduitsByCategorie() {
 
-        Session session = sessionFactory.openSession();
+        Session session = utils.getSessionFactory().openSession();
         session.beginTransaction();
         String hql = "from Produit where categorie.nom = 'sucrerie'";
         Query query = session.createQuery(hql);
@@ -148,7 +124,7 @@ public class ProduitDaoSessionFactory implements ProduitDao {
 
     public void searchProduitByNom() {
 
-        Session session = sessionFactory.openSession();
+        Session session = utils.getSessionFactory().openSession();
         session.beginTransaction();
 
         String hql = "from Produit where nom like :keyword";

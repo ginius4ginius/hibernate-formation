@@ -9,8 +9,7 @@ public class CommandePK implements Serializable {
     private long utilisateurId;
     private long produitId;
 
-    @Column(name = "utilisateur_id")
-    @Id
+
     public long getUtilisateureId() {
         return utilisateurId;
     }
@@ -19,13 +18,18 @@ public class CommandePK implements Serializable {
         this.utilisateurId = utilisateurId;
     }
 
-    @Column(name = "produit_id")
-    @Id
     public long getProduitId() {
         return produitId;
     }
 
     public void setProduitId(long techniqueId) {
+        this.produitId = produitId;
+    }
+
+    public CommandePK(){}
+
+    public CommandePK(long utilisateurId, long produitId){
+        this.utilisateurId = utilisateurId;
         this.produitId = produitId;
     }
 }

@@ -1,18 +1,6 @@
 package com.formation.dao;
 
-public interface ProduitDao {
-
-    public void setup();
-
-    public void exit();
-
-    public void create();
-
-    public void read();
-
-    public void update();
-
-    public void delete();
+public interface ProduitDao extends Dao {
 
     public void selectProduits();
 

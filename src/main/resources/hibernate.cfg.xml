@@ -15,8 +15,13 @@
 
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
+
         <mapping class="com.formation.entities.Produit" />
         <mapping class="com.formation.entities.Categorie" />
+        <mapping class="com.formation.entities.Utilisateur" />
+        <mapping class="com.formation.entities.CommandePK" />
+        <mapping class="com.formation.entities.Commande" />
+
 
     </session-factory>
 </hibernate-configuration>

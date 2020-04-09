@@ -1,17 +1,17 @@
-import com.formation.dao.ProduitDao;
-import com.formation.dao.ProduitDaoEntityManagerFactory;
-import com.formation.dao.ProduitDaoSessionFactory;
+import com.formation.dao.*;
+import com.formation.dao.utils.SessionFactoryUtils;
+import com.formation.entities.Commande;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ProduitDao produitDaoSf= new ProduitDaoSessionFactory();
-        //ProduitDao produitDaoEmf= new ProduitDaoEntityManagerFactory();
+        SessionFactoryUtils utils = new SessionFactoryUtils();
 
-        produitDaoSf.setup();
-        produitDaoSf.searchProduitByNom();
-        produitDaoSf.exit();
+
+        Dao commandeDaoSf = new CommandeDaoSessionFactory();
+        commandeDaoSf.delete();
+        utils.exit();
 
     }
 
